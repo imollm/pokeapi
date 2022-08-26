@@ -12,7 +12,6 @@ async function seedDB(collectionName) {
 
     pokedex.map(pokemon => {
         collectionObjects.push({
-            id: pokemon.id,
             name: pokemon.name,
             type: pokemon.type,
             HP: pokemon.HP,
