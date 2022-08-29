@@ -1,20 +1,30 @@
 require('../config')
 
+const path = require('path')
 const app = require('../app')
 const port = process.env.PORT || 3000
-const { version } = require('../package.json')
 
-app.get('/health', (req, res) => {
-  res.send('ok')
-})
+const { ApolloServer } = require('apollo-server-express')
+const { makeExecutableSchema } = require('@graphql-tools/schema')
+const { loadFilesSync } = require('@graphql-tools/load-files')
 
-app.get('/version', (req, res) => {
-  res.send(version)
-})
+const typesArray = loadFilesSync(`${process.cwd()}/**/*.graphql`)
+const resolversArray = loadFilesSync(`${process.cwd()}**/resolvers.js`)
 
-app.get('/', (req, res) => {
-  res.send('<h1>Pokemon API v1 by Ivan Moll</h1>')
-})
+// GRAPHQL
+async function startApolloServer() {
+  const schema = makeExecutableSchema({
+    typeDefs: typesArray,
+    resolvers: resolversArray
+  })
 
-app.listen(port)
-console.log(`Server is running on port ${ port }`)
+  const server = new ApolloServer({ schema })
+
+  await server.start()
+  server.applyMiddleware({ app, path: '/graphql' })
+
+  app.listen(port)
+  console.log(`Server is running on port ${ port }`)
+}
+
+startApolloServer();
