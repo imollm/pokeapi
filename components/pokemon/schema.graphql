@@ -2,6 +2,7 @@ type Query {
     lastPokemons(limit: Int): [Pokemon]
     pokemons: [Pokemon]
     pokemonById(id: ID!): Pokemon
+    searchPokemon(toSearch: String): [Pokemon]
 }
 
 type Pokemon {

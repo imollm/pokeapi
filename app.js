@@ -39,9 +39,7 @@ app.use(function (req, res, next) {
 })
 
 // ROUTES
-const { schema } = require('./components/pokemon/mongoose')
 const routes = require('./routes/index')
-const { environment } = require('./config/index')
 app.use('/api/v1', routes)
 
 module.exports = app

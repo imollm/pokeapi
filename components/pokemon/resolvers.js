@@ -10,7 +10,10 @@ module.exports = {
         },
         pokemonById: async (_, args) => {
             return await pokemonModel.getPokemonById(args.id)
-        } 
+        },
+        searchPokemon: async (_, args) => {
+            return await pokemonModel.searchPokemon(args.toSearch)
+        }
     }
 }
 
