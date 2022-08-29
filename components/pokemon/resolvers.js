@@ -14,6 +14,22 @@ module.exports = {
         searchPokemon: async (_, args) => {
             return await pokemonModel.searchPokemon(args.toSearch)
         }
+    },
+    Mutation: {
+        addNewPokemon: async (_, args) => {
+            const pokemon = {
+                name: args.name,
+                type: args.type,
+                HP: args.HP,
+                attack: args.attack,
+                defense: args.defense,
+                SPAttack: args.SPAttack,
+                SPDefense: args.SPDefense,
+                speed: args.speed,
+                image: args.image
+            }
+            return await pokemonModel.createPokemon(pokemon)
+        }
     }
 }
 
