@@ -8,6 +8,7 @@ This repository contains an API to play with Pokemons. It has been builded with:
 - Mongo 💿
 - Mongoose 🐁
 - Docker 🐳
+- GraphQL 🍇
 
 ## Environment
 You can run this API through:
@@ -42,7 +43,7 @@ At this point you should have the API and Database running as a Docker container
 
 And also the database seeded with 809 Pokemons!
 
-## Run without Docker
+## Run without Docker
 1. `cd <project_path>/pokeapi`
 2. `npm install`
 3. `npm run seed`
@@ -55,7 +56,13 @@ In the project you have [Postman](https://www.postman.com/downloads/) folder tha
 
 Import these files in Postman, and select the environment, then execute any request.
 
-## Debug
+## GraphQL
+If you want to play with GraphQL queries and mutations please visit this link:
+```sh
+http://localhost:8080/graphql
+```
+
+## Debug
 If you want to debug with Docker you have to create a file and the copy the following JSON object.
 1. `touch .vscode/launch.json`
 2. ```json
