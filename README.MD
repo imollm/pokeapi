@@ -8,6 +8,7 @@ This repository contains an API to play with Pokemons. It has been builded with:
 - Mongo 💿
 - Mongoose 🐁
 - Docker 🐳
+- GraphQL 🪢
 
 ## Environment
 You can run this API through:
