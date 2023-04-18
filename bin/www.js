@@ -1,4 +1,4 @@
-require('../config')
+require('dotenv-flow').config()
 
 const path = require('path')
 const app = require('../app')

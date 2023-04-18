@@ -4,7 +4,7 @@ const express = require('express')
 const controller = require('./controller')
 const router = express.Router()
 const multipart = require('connect-multiparty')
-const mdUpload = multipart({ uploadDir: './upload/pokemon' })
+const mdUpload = multipart({ uploadDir: './upload/trainer' })
 
 router.get('/test', controller.test)
 

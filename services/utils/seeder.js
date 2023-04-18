@@ -3,15 +3,24 @@
 const mongoose = require('mongoose')
 const MongoDB = require('../mongoDb')
 const pokedex = require('../../pokedex.json')
-const collectionName = 'pokemons'
 
-async function seedDB(collectionName) {
+async function seedDB() {
     const mongodb = new MongoDB()
     await mongodb.connect()
-    let collectionObjects = []
+    
+    await seedPokemons()
+    await seedTrainers()
 
-    pokedex.map(pokemon => {
-        collectionObjects.push({
+    await mongodb.disconnect()
+}
+
+function getCollectionByName(collectionName) {
+    return mongoose.connection.collection(collectionName)
+}
+
+async function seedPokemons() {
+    const collectionObjects = pokedex.pokemons.map(pokemon => {
+        return {
             name: pokemon.name,
             type: pokemon.type,
             HP: pokemon.HP,
@@ -21,17 +30,29 @@ async function seedDB(collectionName) {
             SPDefense: pokemon.SPDefense,
             speed: pokemon.speed,
             image: pokemon.image
-        })
+        }
     })
 
-    await getCollectionByName(collectionName).insertMany(collectionObjects)
+    await getCollectionByName('pokemons').insertMany(collectionObjects)
 }
 
-function getCollectionByName(collectionName) {
-    return mongoose.connection.collection(collectionName)
+async function seedTrainers() {
+    const collectionObjects = pokedex.trainers.map(trainer => {
+        return {
+            name: trainer.name,
+            age: trainer.age,
+            pokemons: trainer.pokemons.map(pokemon => {
+                return {
+                    name: pokemon.name,
+                    type: pokemon.type
+                }
+            })
+        }
+    })
+
+    await getCollectionByName('trainers').insertMany(collectionObjects)
 }
 
-seedDB(collectionName).then(() => {
-    console.log('Successfully seeded the database')
-    process.exit(0)
-});
+module.exports = {
+    seedDB
+}

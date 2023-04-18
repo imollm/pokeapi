@@ -1,6 +1,6 @@
 'use strict'
 
-require('../../config/index')
+// require('dotenv-flow').config()
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 

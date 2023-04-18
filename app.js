@@ -1,7 +1,7 @@
-require('./config/index')
+// require('dotenv-flow').config()
 const MongoDB = require('./services/mongoDb')
 const express = require('express')
-const bodyParser = require('body-parser')
+const middlewares = require('./middlewares')
 
 // CONNECT WITH MONGODB
 const connect = async () => await new MongoDB().connect()
@@ -11,9 +11,7 @@ connect()
 const app = express()
 
 // MIDDLEWARES
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-app.use(express.json())
+middlewares.init(app)
 
 // CORS
 app.use(function (req, res, next) {
@@ -25,5 +23,10 @@ app.use(function (req, res, next) {
 // ROUTES
 const routes = require('./routes/index')
 app.use('/api/v1', routes)
+
+// SEEDER
+process.env.SEED_DATABASE
+  ? require('./services/utils/seeder').seedDB()
+  : null
 
 module.exports = app

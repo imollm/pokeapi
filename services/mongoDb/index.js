@@ -1,12 +1,13 @@
 'use strict'
 
-require('../../config')
+// require('dotenv-flow').config()
 const mongoose = require('mongoose')
 
 module.exports = class MongoDB {
 
   constructor() {
     this.client = undefined
+    console.log(process.env.MONGODB_URI)
     this.url = process.env.MONGODB_URI
     mongoose.set('useFindAndModify', false)
     mongoose.Promise = global.Promise

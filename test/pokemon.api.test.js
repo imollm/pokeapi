@@ -1,4 +1,4 @@
-require('../config')
+// require('dotenv-flow').config()
 const app = require('../app')
 const request = require('supertest')
 const faker = require('faker')
